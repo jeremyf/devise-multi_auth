@@ -1,4 +1,4 @@
-# Devise::MultiAuth [![Version](https://badge.fury.io/rb/devise-multi_auth.png)](http://badge.fury.io/rb/devise-multi_auth)
+# Devise::MultiAuth [![Build Status](https://travis-ci.org/jeremyf/devise-multi_auth.png?branch=master)](https://travis-ci.org/jeremyf/devise-multi_auth) [![Version](https://badge.fury.io/rb/devise-multi_auth.png)](http://badge.fury.io/rb/devise-multi_auth)
 
 A [Devise](https://github.com/plataformatec/devise) plugin leveraging [omniauth](https://github.com/intridea/omniauth) to
 expose alternate means for authenticating existing users.

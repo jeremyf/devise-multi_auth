@@ -22,7 +22,7 @@ module Devise::MultiAuth
       end
 
       context 'with a registered user' do
-        let(:user) { FactoryGirl.build(:devise_multi_auth_user) }
+        let(:user) { FactoryGirl.create(:devise_multi_auth_user) }
         before(:each) do
           Authentication.should_receive(:find_user_by_provider_and_uid).with(provider.to_s, uid).and_return(user)
         end

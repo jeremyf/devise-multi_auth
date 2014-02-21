@@ -22,3 +22,7 @@ And then execute:
 $ bundle
 $ rails generate devise:multi_auth:install
 ```
+
+## TODO
+
+At present, this [Rails Engine](http://guides.rubyonrails.org/engines.html) does not expose an obvious means for initiating the connecting between an existing account and an omniauth-enabled account (i.e. login via Github).

@@ -19,3 +19,5 @@ namespace :spec do
   desc 'Rebuild and run the specs'
   task :travis => ['engine_cart:clean', 'engine_cart:generate', 'spec']
 end
+
+task :default => :spec

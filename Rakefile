@@ -5,7 +5,11 @@ rescue LoadError
 end
 
 APP_RAKEFILE = File.expand_path("../spec/internal/Rakefile", __FILE__)
-load 'rails/tasks/engine.rake'
+begin
+  load 'rails/tasks/engine.rake'
+rescue LoadError
+  puts "Warning: Unable to find #{APP_RAKEFILE}; internal application's tasks will not be loaded."
+end
 
 require 'engine_cart/rake_task'
 

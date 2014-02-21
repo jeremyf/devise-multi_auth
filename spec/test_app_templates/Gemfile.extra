@@ -1,0 +1,4 @@
+# extra gems to load into the test app go here
+gem 'database_cleaner', '1.0.1'
+gem 'factory_girl'
+gem 'omniauth-github'

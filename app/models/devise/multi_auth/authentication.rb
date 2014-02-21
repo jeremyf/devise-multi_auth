@@ -23,8 +23,7 @@ module Devise::MultiAuth
     end
 
     def to_access_token(config = {})
-      # @TODO - Need an alternate oauth_client
-      client = config.fetch(:client) { Orcid.oauth_client }
+      client = config.fetch(:client) { Devise::MultiAuth.oauth_client_for(provider) }
       tokenizer = config.fetch(:tokenizer) { ::OAuth2::AccessToken.method(:new) }
       tokenizer.call(client, access_token, refresh_token: refresh_token)
     end

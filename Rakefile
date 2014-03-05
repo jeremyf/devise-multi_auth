@@ -24,4 +24,4 @@ namespace :spec do
   task :travis => ['engine_cart:clean', 'engine_cart:generate', 'spec']
 end
 
-task :default => :spec
+task :default => 'spec:travis'

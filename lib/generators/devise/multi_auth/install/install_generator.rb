@@ -20,10 +20,6 @@ module Devise::MultiAuth
       insert_into_file 'config/routes.rb', routing_code, { :after => /devise_for :users/, :verbose => false }
     end
 
-    def install_warden_initializer
-      template('devise_multi_auth_initializer.rb.erb', 'config/initializers/devise_multi_auth_initializer.rb')
-    end
-
     def install_migrations
       rake 'devise_multi_auth:install:migrations'
       if ! options[:skip_migrate]

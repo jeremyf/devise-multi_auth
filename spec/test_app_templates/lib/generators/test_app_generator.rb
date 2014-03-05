@@ -4,6 +4,7 @@ class TestAppGenerator < Rails::Generators::Base
   source_root "spec/test_app_templates"
 
   def install_devise_multi_auth
+    gem "omniauth-github"
     generate 'devise:multi_auth:install --install_devise --skip_migrate'
   end
 

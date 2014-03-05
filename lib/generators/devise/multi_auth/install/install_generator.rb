@@ -5,6 +5,7 @@ module Devise::MultiAuth
     source_root File.expand_path('../templates', __FILE__)
 
     class_option :install_devise, default: false, type: :boolean
+    class_option :skip_migrate, default: false, type: :boolean
 
     def install_devise
       if options[:install_devise]
@@ -24,6 +25,11 @@ module Devise::MultiAuth
 
     def install_migrations
       rake 'devise_multi_auth:install:migrations'
+      if ! options[:skip_migrate]
+        rake 'db:migrate'
+      end
     end
+
   end
+
 end

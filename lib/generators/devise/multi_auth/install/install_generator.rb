@@ -6,6 +6,7 @@ module Devise::MultiAuth
 
     class_option :install_devise, default: false, type: :boolean
     class_option :skip_migrate, default: false, type: :boolean
+    class_option :with_omniauth_github, default: false, type: :boolean
 
     def install_devise
       if options[:install_devise]
@@ -14,11 +15,6 @@ module Devise::MultiAuth
       end
     end
 
-    def install_authentications_controller
-      gem "omniauth-github"
-      routing_code = %(, controllers: { omniauth_callbacks: 'devise/multi_auth/authentications' }\n)
-      insert_into_file 'config/routes.rb', routing_code, { :after => /devise_for :users/, :verbose => false }
-    end
 
     def install_migrations
       rake 'devise_multi_auth:install:migrations'
@@ -27,6 +23,13 @@ module Devise::MultiAuth
       end
     end
 
+    def install_authentications_controller
+      if options[:with_omniauth_github]
+        gem "omniauth-github"
+      end
+      routing_code = %(, controllers: { omniauth_callbacks: 'devise/multi_auth/authentications' }\n)
+      insert_into_file 'config/routes.rb', routing_code, { :after => /devise_for :users/, :verbose => false }
+    end
   end
 
 end

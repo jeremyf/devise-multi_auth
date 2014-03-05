@@ -15,6 +15,7 @@ module Devise::MultiAuth
     end
 
     def install_authentications_controller
+      gem "omniauth-github"
       routing_code = %(, controllers: { omniauth_callbacks: 'devise/multi_auth/authentications' }\n)
       insert_into_file 'config/routes.rb', routing_code, { :after => /devise_for :users/, :verbose => false }
     end

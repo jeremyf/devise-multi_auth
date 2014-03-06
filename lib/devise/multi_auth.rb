@@ -1,4 +1,5 @@
 require "devise/multi_auth/engine"
+require "devise/multi_auth/exceptions"
 
 module Devise::MultiAuth
   module_function

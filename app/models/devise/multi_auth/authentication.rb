@@ -8,6 +8,8 @@ module Devise::MultiAuth
       client = options.fetch(:client)
       provider = options.fetch(:provider)
       where(provider: provider, uid: uid).first!.to_access_token(client: client)
+    rescue ActiveRecord::RecordNotFound
+      raise AccessTokenNotFound.new(provider: provider, uid: uid)
     end
 
     def self.find_user_by_provider_and_uid(provider, uid)
@@ -22,10 +24,18 @@ module Devise::MultiAuth
       where(provider: provider, uid: uid).includes(:user).first
     end
 
+    def verified?
+      access_token.present?
+    end
+
     def to_access_token(config = {})
       client = config.fetch(:client) { Devise::MultiAuth.oauth_client_for(provider) }
       tokenizer = config.fetch(:tokenizer) { ::OAuth2::AccessToken.method(:new) }
-      tokenizer.call(client, access_token, refresh_token: refresh_token)
+      if verified?
+        tokenizer.call(client, access_token, refresh_token: refresh_token)
+      else
+        raise AccessTokenUnverified.new(provider: provider, uid: uid)
+      end
     end
   end
 end

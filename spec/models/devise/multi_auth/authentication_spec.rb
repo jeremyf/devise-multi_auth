@@ -17,25 +17,51 @@ module Devise::MultiAuth
 
     context '.to_access_token' do
       let(:client) { double('Client') }
-      before(:each) do
-        described_class.create!(attributes)
+      context 'with a created token'do
+        before(:each) do
+          described_class.create!(attributes)
+        end
+        subject { described_class.to_access_token(uid: uid, provider: provider, client: client) }
+        it { should respond_to :get }
+        it { should respond_to :post }
+        it { should respond_to :refresh! }
+        it { should respond_to :expires? }
+        it { should respond_to :expires? }
       end
-      subject { described_class.to_access_token(uid: uid, provider: provider, client: client) }
-      it { should respond_to :get }
-      it { should respond_to :post }
-      it { should respond_to :refresh! }
-      it { should respond_to :expires? }
+
+      context 'with a missing token' do
+        it 'raises an error' do
+          expect{ described_class.to_access_token(uid: uid, provider: provider, client: client) }.to raise_error(AccessTokenNotFound)
+        end
+      end
     end
 
     context '#to_access_token' do
       let(:client) { double('Client') }
-      subject { described_class.new(attributes).to_access_token(client: client) }
+      subject { described_class.new(attributes) }
 
-      it { should respond_to :get }
-      it { should respond_to :post }
-      it { should respond_to :refresh! }
-      it { should respond_to :expires? }
+      context 'without verified authentication' do
+        its(:verified?) { should eq(true) }
+        it { expect(subject.to_access_token(client: client)).to respond_to :get }
+        it { expect(subject.to_access_token(client: client)).to respond_to :post }
+        it { expect(subject.to_access_token(client: client)).to respond_to :refresh! }
+        it { expect(subject.to_access_token(client: client)).to respond_to :expires? }
+      end
 
+      context 'without verified authentication' do
+        subject { described_class.new(attributes) }
+        let(:attributes) {
+          {
+            "user_id"=>1,
+            "provider"=>provider,
+            "uid"=>uid,
+          }
+        }
+        its(:verified?) { should eq(false) }
+        it {
+          expect { subject.to_access_token(client: client) }.to raise_error(Devise::MultiAuth::AccessTokenUnverified)
+        }
+      end
     end
 
     context '.find_by_provider_and_uid' do

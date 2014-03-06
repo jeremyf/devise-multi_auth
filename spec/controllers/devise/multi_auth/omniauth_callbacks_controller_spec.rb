@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Devise::MultiAuth
-  describe AuthenticationsController do
+  describe OmniauthCallbacksController do
     let(:provider) { :github }
     let(:uid) { '12345' }
     before(:each) do
@@ -30,6 +30,7 @@ module Devise::MultiAuth
         # Trying to figure out why.
         it 'should assign the user and redirect to home' do
           get provider
+          expect(flash[:notice]).to_not match(/translation missing/i)
           expect(assigns(:user)).to eq(user)
           expect(response).to be_redirect
         end

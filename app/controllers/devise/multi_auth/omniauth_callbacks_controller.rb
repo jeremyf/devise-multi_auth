@@ -1,5 +1,5 @@
 module Devise::MultiAuth
-  class AuthenticationsController < Devise::OmniauthCallbacksController
+  class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     Devise.omniauth_providers.each do |provider|
       define_method(provider) do

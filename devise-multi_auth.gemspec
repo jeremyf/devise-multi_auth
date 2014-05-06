@@ -13,7 +13,14 @@ Gem::Specification.new do |s|
   s.summary     = "A Devise plugin for exposing multiple authentication providers via omniauth."
   s.description = "A Devise plugin for exposing multiple authentication providers via omniauth."
 
-  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
+  s.files         = `git ls-files -z`.split("\x0")
+  # Deliberately removing bin executables as it appears to relate to
+  # https://github.com/cbeer/engine_cart/issues/9
+  s.executables   = s.executables   = s.files.grep(%r{^bin/}) do |f|
+    f == 'bin/rails' ? nil : File.basename(f)
+  end.compact
+  s.test_files    = s.files.grep(/^(test|spec|features)\//)
+  s.require_paths = ['lib']
 
   s.add_dependency "rails", "~> 4.0.3"
   s.add_dependency "devise", "~> 3.2.2"

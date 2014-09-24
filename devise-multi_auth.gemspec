@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'database_cleaner', '1.0.1'
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "engine_cart"
-  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "rspec-rails", '~> 2.12'
   s.add_development_dependency "omniauth-github"
   s.add_development_dependency "factory_girl"
 end

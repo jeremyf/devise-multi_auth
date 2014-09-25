@@ -12,7 +12,7 @@ module Devise::MultiAuth
     def authentication_from_external_app
       omni = request.env["omniauth.auth"]
       if @user = Authentication.find_user_by_provider_and_uid(omni['provider'], omni['uid'])
-        set_flash_message(:notice, :success, kind: omni['provider']) if is_navigational_format?
+        set_flash_message(:notice, :success, kind: t("omniauth.provider_name.#{omni['provider']}", default: omni['provider'])) if is_navigational_format?
         Devise::MultiAuth.capture_successful_external_authentication(@user, omni)
         sign_in_and_redirect @user, event: :authentication
       else

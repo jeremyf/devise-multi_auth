@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency "rails", "~> 4.0"
-  s.add_dependency "devise", "~> 3.2"
+  s.add_dependency "devise", "> 3.2"
   s.add_dependency "omniauth", "~> 1.2"
 
   s.add_development_dependency 'database_cleaner', '1.0.1'

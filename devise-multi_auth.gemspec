@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(/^(test|spec|features)\//)
   s.require_paths = ['lib']
 
-  s.add_dependency "rails", "< 6.0"
+  s.add_dependency "rails", "< 5.0"
   s.add_dependency "devise", "> 3.2"
   s.add_dependency "omniauth", "~> 1.2"
 

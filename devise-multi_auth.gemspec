@@ -22,14 +22,14 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(/^(test|spec|features)\//)
   s.require_paths = ['lib']
 
-  s.add_dependency "rails", "~> 4.0"
+  s.add_dependency "rails", "< 6.0"
   s.add_dependency "devise", "> 3.2"
   s.add_dependency "omniauth", "~> 1.2"
 
   s.add_development_dependency 'database_cleaner', '1.0.1'
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "engine_cart"
-  s.add_development_dependency "rspec-rails", '~> 2.12'
+  s.add_development_dependency "rspec-rails"
   s.add_development_dependency "omniauth-github"
   s.add_development_dependency "factory_girl"
 end
